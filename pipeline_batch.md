@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
     A[Arquivo CSV] --> B[Extração - Python]
     B --> C[Transformação - Pandas]

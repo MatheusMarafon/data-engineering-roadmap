@@ -1,0 +1,5 @@
+,order_id, customer_id, preco, data,categoria, regionais
+0,1,101,250.0, 2024-01-01,Venda Normal, Sudeste
+1,2,102,200.5, 2024-01-02,Venda Normal, Sul
+2,3,101,500.0, 2024-01-03,Venda Alta, Sudeste
+3,4,103,350.0, 2024-01-04,Venda Alta, Norte

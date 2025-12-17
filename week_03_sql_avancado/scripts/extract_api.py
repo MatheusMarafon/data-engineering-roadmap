@@ -1,47 +1,70 @@
 import requests
 import json
 import os
+import logging
+import time
+
+#Configuração do Logging
+logging.basicConfig(
+    level=logging.INFO,  #Mostra mensagens de INFO, WARNING e ERROR
+    format="%(asctime)s - %(levelname)s - %(message)s",  #Formato: Data - Nível - Msg
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 
-def extract_users():
+def extract_users_with_logging():
     url = "https://jsonplaceholder.typicode.com/users"
 
-    caminho_pasta = r"C:\Users\matheus.r\Desktop\data-engineering-roadmap\week_03_sql_avancado\data\raw"
-    nome_arquivo = "users.json"
+    #Caminhos
+    diretorio_script = os.path.dirname(os.path.abspath(__file__))
+    diretorio_raiz = os.path.dirname(diretorio_script)
+    pasta_destino = os.path.join(diretorio_raiz, "data", "raw")
+    caminho_saida = os.path.join(pasta_destino, "users.json")
 
-    caminho_saida = os.path.join(caminho_pasta, nome_arquivo)
-    print(f"Conectando a url: {url}")
+    logging.info(f"Iniciando processo de extração para: {url}")
 
-    try:
-        # Faz a requisição (GET)
-        # Usamos timeout = 10 (10 seg) para caso o servidor demore
-        response = requests.get(url, timeout=10)
+    #Estratégia de Backoff (Tentar de novo)
+    max_tentativas = 3
 
-        # Verificando o STATUS
-        # 200 = Sucesso
-        # 404 = Não encontrado
-        # 500 = Erro no servidor
-        if response.status_code == 200:
-            data = response.json()
-            print(f"Sucesso! {len(data)} usuários baixados."),
+    for tentativa in range(1, max_tentativas + 1):
+        try:
+            logging.info(f"Tentativa {tentativa} de {max_tentativas}...")
 
-            os.makedirs(os.path.dirname(caminho_saida), exist_ok=True)
+            response = requests.get(url, timeout=10)
 
-            with open(caminho_saida, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=5, ensure_ascii=False)
+            if response.status_code == 200:
+                data = response.json()
+                logging.info(f"Download concluído! {len(data)} registros baixados.")
+       
+                os.makedirs(pasta_destino, exist_ok=True)
+                with open(caminho_saida, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
 
-            print(f"Arquivo salvo em: {caminho_saida}")
+                logging.info(f"Arquivo salvo com sucesso em: {caminho_saida}")
+
+                break
+
+            else:
+                logging.warning(f"A API retornou erro: {response.status_code}")
+                #Se não foi sucesso, o loop continua para a próxima tentativa
+
+        except requests.exceptions.Timeout:
+            logging.error("Timeout: O servidor demorou para responder.")
+        except requests.exceptions.ConnectionError:
+            logging.error("Erro de Conexão: Verifique a internet.")
+        except Exception as e:
+            logging.critical(f"Erro inesperado: {e}")
+
+        #Espera antes de tentar de novo (Backoff)
+        if tentativa < max_tentativas:
+            tempo_espera = 2 * tentativa  # Espera 2s, depois 4s...
+            logging.info(
+                f"Aguardando {tempo_espera} segundos para tentar novamente..."
+            )
+            time.sleep(tempo_espera)
         else:
-            print(f"Erro na requisição: {response.status_code}")
-    except requests.exceptions.Timeout:
-        print(
-            "Erro: O servidor demorou muito para responder (Timeout)."
-        )  # Neste caso, uma opção é aumentar o timeout
-    except requests.exceptions.ConnectionError:
-        print("Erro: Falha de conexão. Verifique sua internet.")
-    except Exception as e:
-        print(f"Erro inesperado: {e}")
+            logging.error("Todas as tentativas falharam. Abortando.")
 
 
 if __name__ == "__main__":
-    extract_users()
+    extract_users_with_logging()

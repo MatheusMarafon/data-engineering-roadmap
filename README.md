@@ -21,7 +21,7 @@ Cada pasta representa uma semana do cronograma de estudos.
 - [x] Semana 1 — Fundamentos de Engenharia de Dados
 - [x] Semana 2 — Python para Dados
 - [x] Semana 3 — SQL Avançado
-- [ ] Semana 4 — ETL e Pipelines
+- [x] Semana 4 — ETL e Pipelines
 - [ ] Semana 5 — PostgreSQL
 - [ ] Semana 6 — Automação e Airflow
 - [ ] Semana 7 — Cloud e Portfólio

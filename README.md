@@ -1,27 +1,46 @@
 # Data Engineering Roadmap
 
-Este repositório documenta minha formação prática em Engenharia de Dados,
-com foco em pipelines reais, qualidade de dados e boas práticas de mercado.
+Este repositório documenta minha jornada prática em Engenharia de Dados, focando na construção de pipelines robustos, qualidade de dados, automação e boas práticas de mercado.
 
-## Objetivo
-Desenvolver competências em:
-- Engenharia de Dados
-- Python para dados
-- SQL avançado
-- ETL e pipelines
-- PostgreSQL
-- Automação
-- Airflow
-- Cloud (AWS Free Tier)
+O projeto segue um cronograma intensivo de 12 semanas, cobrindo desde os fundamentos até a implementação de orquestradores em nuvem.
 
-## Estrutura do Repositório
-Cada pasta representa uma semana do cronograma de estudos.
+## Objetivos
+Desenvolver competências técnicas em:
+- Linguagens: Python (Pandas, Numpy, APIs) e SQL Avançado.
+- Banco de Dados: PostgreSQL e Modelagem Dimensional.
+- Engenharia: ETL/ELT, Idempotência, Logging e Tratamento de Erros.
+- Orquestração: Airflow e Cron.
+- Cloud: AWS (S3, RDS, IAM).
 
-## Progresso
-- [x] Semana 1 — Fundamentos de Engenharia de Dados
-- [x] Semana 2 — Python para Dados
-- [x] Semana 3 — SQL Avançado
-- [x] Semana 4 — ETL e Pipelines
-- [ ] Semana 5 — PostgreSQL
-- [ ] Semana 6 — Automação e Airflow
-- [ ] Semana 7 — Cloud e Portfólio
+## Estrutura e Progresso
+Cada pasta representa uma etapa do cronograma de estudos.
+
+| Pasta | Tópico Principal | Status |
+| :--- | :--- | :---: |
+| week_01_fundamentos | Conceitos de ED e Ambientação | [x] |
+| week_02_python_dados_1 | Pandas, Numpy e Leitura de Arquivos | [x] |
+| week_03_python_dados_2 | APIs, Requests e Robustez | [x] |
+| week_04_sql_profissional_1 | Joins, CTEs e Consultas Complexas | [x] |
+| week_05_sql_profissional_2 | Window Functions e Performance | [x] |
+| week_06_etl_pratica | Pipeline ETL Completo (Python + Postgres) | [x] |
+| week_07_postgres_modelagem | Modelagem de Dados e DDL | [ ] |
+| week_08_automacao_cron | Scripts Automatizados | [ ] |
+| week_09_airflow_concepts | DAGs e Operadores | [ ] |
+| week_10_aws_free_tier | Integração com Cloud (S3/RDS) | [ ] |
+| week_11_airflow_aws | Pipeline Híbrido | [ ] |
+| week_12_portfolio_final | Projeto Final de Encerramento | [ ] |
+
+## Como Executar (Exemplo da Semana 6)
+Para rodar o pipeline ETL desenvolvido na Semana 6:
+
+1. Instale as dependências:
+pip install -r requirements.txt
+
+2. Certifique-se de ter um banco PostgreSQL em execução.
+
+3. Execute o pipeline via terminal:
+cd week_06_etl_pratica/python
+python main.py --arquivo ../data/vendas_internacionais.csv
+
+---
+Desenvolvido como parte do meu portfólio de Engenharia de Dados.

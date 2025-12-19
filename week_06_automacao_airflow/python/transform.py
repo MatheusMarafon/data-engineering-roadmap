@@ -18,14 +18,14 @@ def process_data(df, cotacoes):
 
         cotacoes["BRL"] = 1.0
 
-        df["cotacoes_dia"] = df["moeda"].map(cotacoes)
+        df["cotacao_dia"] = df["moeda"].map(cotacoes)
 
-        if df["cotacoes_dia"].isnull().any():
-            qtd_erros = df["cotacoes_dia"].isnull().sum()
+        if df["cotacao_dia"].isnull().any():
+            qtd_erros = df["cotacao_dia"].isnull().sum()
             print(f"{qtd_erros} vendas com moedas desconhecidas removidas.")
-            df = df.dropna(subset=["cotacoes_dia"])
+            df = df.dropna(subset=["cotacao_dia"])
 
-        df["valor_em_brl"] = df["valor_original"] * df["cotacoes_dia"]
+        df["valor_em_brl"] = df["valor_original"] * df["cotacao_dia"]
         df["valor_em_brl"] = df["valor_em_brl"].round(2)
 
         df_final = df.rename(
@@ -38,7 +38,7 @@ def process_data(df, cotacoes):
             "produto",
             "valor_original",
             "moeda_origem",
-            "cotacoes_dia",
+            "cotacao_dia",
             "valor_em_brl",
         ]
 

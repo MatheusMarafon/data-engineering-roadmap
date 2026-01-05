@@ -73,7 +73,7 @@ def buscar_cotacoes():
         sys.exit(1)
 
 
-if __name__ == "__mai__":
+if __name__ == "__main__":
     df = ler_dados_vendas("")
 
     buscar_cotacoes()

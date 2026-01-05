@@ -23,7 +23,7 @@ Cada pasta representa uma etapa do cronograma de estudos.
 | week_04_sql_profissional_1 | Joins, CTEs e Consultas Complexas | [x] |
 | week_05_sql_profissional_2 | Window Functions e Performance | [x] |
 | week_06_etl_pratica | Pipeline ETL Completo (Python + Postgres) | [x] |
-| week_07_postgres_modelagem | Modelagem de Dados e DDL | [ ] |
+| week_07_postgres_modelagem | Modelagem de Dados e DDL | [x] |
 | week_08_automacao_cron | Scripts Automatizados | [ ] |
 | week_09_airflow_concepts | DAGs e Operadores | [ ] |
 | week_10_aws_free_tier | Integração com Cloud (S3/RDS) | [ ] |

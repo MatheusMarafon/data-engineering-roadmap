@@ -24,7 +24,7 @@ Cada pasta representa uma etapa do cronograma de estudos.
 | week_05_sql_profissional_2 | Window Functions e Performance | [x] |
 | week_06_etl_pratica | Pipeline ETL Completo (Python + Postgres) | [x] |
 | week_07_postgres_modelagem | Modelagem de Dados e DDL | [x] |
-| week_08_automacao_cron | Scripts Automatizados | [ ] |
+| week_08_automacao_cron | Scripts Automatizados | [x] |
 | week_09_airflow_concepts | DAGs e Operadores | [ ] |
 | week_10_aws_free_tier | Integração com Cloud (S3/RDS) | [ ] |
 | week_11_airflow_aws | Pipeline Híbrido | [ ] |
@@ -42,5 +42,18 @@ pip install -r requirements.txt
 cd week_06_etl_pratica/python
 python main.py --arquivo ../data/vendas_internacionais.csv
 
+
+## 📊 Painel de Observabilidade (Pipeline Automatizado)
+
+Este painel registra as últimas execuções e métricas do pipeline de ETL (`week_08`).
+
+| Data de Referência | Data da Execução | Status | Linhas Processadas | Tipo |
+| :--- | :--- | :--- | :---: | :--- |
+| **2026-01-05** | 2026-01-05 14:35 | ✅ Sucesso | 3 | Agendado (Cron) |
+| **2024-01-01** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
+| **2024-01-02** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
+| **2024-01-03** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
+| **2024-01-04** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
+| **2024-01-05** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
 ---
 Desenvolvido como parte do meu portfólio de Engenharia de Dados.

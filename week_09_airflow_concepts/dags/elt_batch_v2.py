@@ -1,20 +1,35 @@
 from airflow.decorators import dag, task
 from airflow.models import Variable
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
-from datetime import datetime
-import time
+from datetime import datetime, timedelta
+import logging # Para melhorar os logs
+
+# 1. Configurando Retries (Resiliência)
+default_args = {
+    'owner': 'Matheus',
+    'retries': 3, # Tenta de novo 3 vezes antes de marcar como falha
+    'retry_delay': timedelta(minutes=5), # Espera 5 min entre tentativas
+}
 
 @dag(
-    dag_id="etl_batch_quinta_feira",
+    dag_id="etl_batch_final_resiliente",
+    default_args=default_args,
     start_date=datetime(2026, 1, 1),
     schedule="@daily",
     catchup=False,
-    tags=["semana_09", "quinta_feira"],
+    doc_md="""
+    ### DAG de Processamento de Vendas (Semana 09)
+    Esta DAG realiza o ETL de vendas diárias:
+    - **Cria** a tabela no Postgres se não existir.
+    - **Extrai** o nome da partição baseado na data.
+    - **Transforma** simulando limpeza de dados.
+    - **Carrega** metadados no Postgres.
+    """, # Docstring que aparece na UI do Airflow
+    tags=["producao", "resiliencia"],
 )
-def etl_pipeline_dinamico():
+def etl_pipeline_final():
 
-    # 1. Tarefa para criar a tabela (Usando a Connection que você criou via CLI)
-    criar_tabela_vendas = SQLExecuteQueryOperator(
+    criar_tabela = SQLExecuteQueryOperator(
         task_id="criar_tabela_vendas",
         conn_id="postgres_db",
         sql="""
@@ -28,27 +43,29 @@ def etl_pipeline_dinamico():
 
     @task
     def extrair_particao():
+        # Melhorando logs
+        logging.info("Iniciando processo de extração de variáveis.")
         caminho = Variable.get("caminho_saida_etl")
-        print(f"Buscando arquivos no diretório: {caminho}")
         nome_arquivo = f"dados_vendas_{datetime.now().strftime('%Y%m%d')}.csv"
+        logging.info(f"Arquivo identificado: {nome_arquivo} no caminho: {caminho}")
         return nome_arquivo 
 
     @task
-    def transformar_particao(arquivo_recebido: str):
-        print(f"Iniciando limpeza do arquivo: {arquivo_recebido}")
-        time.sleep(2)
-        return {"arquivo": arquivo_recebido, "status": "sucesso"}
+    def transformar_particao(arquivo: str):
+        """Simula a transformação e limpeza de dados."""
+        logging.info(f"Limpando o ficheiro {arquivo}...")
+        # Simulação de erro aleatório para testar o Retry (opcional para teste)
+        # if datetime.now().second % 2 == 0: raise ValueError("Erro simulado!")
+        return {"arquivo": arquivo, "status": "transformado"}
 
     @task
-    def carregar_no_postgres(resultado_transformado: dict):
-        print(f"Carregando {resultado_transformado['arquivo']} no banco...")
+    def carregar_no_postgres(resultado: dict):
+        logging.info(f"Finalizando carga do ficheiro {resultado['arquivo']} no Postgres.")
 
-    # Definindo a nova ordem: Criar tabela PRIMEIRO, depois o resto
-    fluxo_extrair = extrair_particao()
-    # Aqui fazemos a dependência: criar_tabela deve rodar antes de extrair
-    criar_tabela_vendas >> fluxo_extrair 
-    
-    resultado = transformar_particao(fluxo_extrair)
-    carregar_no_postgres(resultado)
+    # Fluxo
+    arquivo = extrair_particao()
+    criar_tabela >> arquivo
+    processado = transformar_particao(arquivo)
+    carregar_no_postgres(processado)
 
-etl_pipeline_dinamico()
+etl_pipeline_final()

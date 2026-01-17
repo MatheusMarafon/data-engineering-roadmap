@@ -43,17 +43,17 @@ cd week_06_etl_pratica/python
 python main.py --arquivo ../data/vendas_internacionais.csv
 
 
-## 📊 Painel de Observabilidade (Pipeline Automatizado)
+## Painel de Observabilidade (Pipeline Automatizado)
 
 Este painel registra as últimas execuções e métricas do pipeline de ETL (`week_08`).
 
 | Data de Referência | Data da Execução | Status | Linhas Processadas | Tipo |
 | :--- | :--- | :--- | :---: | :--- |
-| **2026-01-05** | 2026-01-05 14:35 | ✅ Sucesso | 3 | Agendado (Cron) |
-| **2024-01-01** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
-| **2024-01-02** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
-| **2024-01-03** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
-| **2024-01-04** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
-| **2024-01-05** | 2026-01-05 15:10 | ✅ Sucesso | 3 | Backfill |
+| **2026-01-05** | 2026-01-05 14:35 | Sucesso | 3 | Agendado (Cron) |
+| **2024-01-01** | 2026-01-05 15:10 | Sucesso | 3 | Backfill |
+| **2024-01-02** | 2026-01-05 15:10 | Sucesso | 3 | Backfill |
+| **2024-01-03** | 2026-01-05 15:10 | Sucesso | 3 | Backfill |
+| **2024-01-04** | 2026-01-05 15:10 | Sucesso | 3 | Backfill |
+| **2024-01-05** | 2026-01-05 15:10 | Sucesso | 3 | Backfill |
 ---
 Desenvolvido como parte do meu portfólio de Engenharia de Dados.

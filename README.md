@@ -28,7 +28,7 @@ Cada pasta representa uma etapa do cronograma de estudos.
 | week_09_airflow_concepts | DAGs e Operadores | [x] |
 | week_10_aws_free_tier | Integração com Cloud (S3/RDS) | [x] |
 | week_11_airflow_aws | Pipeline Híbrido | [x] |
-| week_12_portfolio_final | Projeto Final de Encerramento | [ ] |
+| week_12_portfolio_final | Projeto Final de Encerramento | [x] |
 
 ## Como Executar (Exemplo da Semana 6)
 Para rodar o pipeline ETL desenvolvido na Semana 6:
